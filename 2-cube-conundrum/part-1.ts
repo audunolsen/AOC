@@ -38,18 +38,13 @@ const gameCriteria = {
     blue: 14,
 }
 
-const validGames = gameRecord.filter(game => {
-    let isLacking = false
+const validGames = gameRecord.filter(
+    game =>
+        !Object.entries(gameCriteria)
+            .map(([color, qty]) => game.pulls.some(pull => pull[color] > qty))
+            .some(e => e)
+)
 
-    for (const [color, qty] of Object.entries(gameCriteria)) {
-        isLacking = game.pulls.some(pull => pull[color] > qty)
+const validGameIdSum = validGames.reduce((acc, game) => acc + game.gameId, 0)
 
-        if (isLacking) break
-    }
-
-    return isLacking
-})
-
-const validGameIdSum = validGames.reduce((acc, e) => acc + e.gameId, 0)
-
-console.log(validGames, validGameIdSum)
+console.log(validGameIdSum)
