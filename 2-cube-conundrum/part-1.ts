@@ -16,13 +16,10 @@ const gameRecord: GameRecord = input.split("\n").map((line, i) => {
 
         return matches.reduce<Record<string, number>>((acc, match) => {
             const color = match?.groups?.color
-            if (!color) return acc
 
-            return {
-                ...acc,
-                // Assumes color is only mentioned once in each pull
-                [color]: parseInt(match?.groups?.qty ?? "0"),
-            }
+            return !color
+                ? acc
+                : { ...acc, [color]: parseInt(match?.groups?.qty ?? "0") }
         }, {})
     })
 
