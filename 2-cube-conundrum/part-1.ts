@@ -39,7 +39,7 @@ const validGames = gameRecord.filter(
     game =>
         !Object.entries(gameCriteria)
             .map(([color, qty]) => game.pulls.some(pull => pull[color] > qty))
-            .some(e => e)
+            .some(Boolean)
 )
 
 const validGameIdSum = validGames.reduce((acc, game) => acc + game.gameId, 0)
